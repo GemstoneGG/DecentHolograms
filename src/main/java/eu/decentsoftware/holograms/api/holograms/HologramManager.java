@@ -52,7 +52,8 @@ public class HologramManager extends Ticked {
         this.toLoad = new ConcurrentHashMap<>();
         this.register();
 
-        S.async(this::reload); // Reload when worlds are ready
+        // Reload when worlds are ready
+        S.async(task -> this.reload());
     }
 
     @Override
@@ -104,7 +105,7 @@ public class HologramManager extends Ticked {
         HologramLine line = new HologramLine(null, location, content);
         temporaryLines.add(line);
         line.show();
-        S.async(() -> {
+        S.async(location,task -> {
             line.destroy();
             temporaryLines.remove(line);
         }, duration);

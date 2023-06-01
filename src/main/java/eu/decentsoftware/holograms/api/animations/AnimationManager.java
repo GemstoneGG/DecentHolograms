@@ -53,7 +53,7 @@ public class AnimationManager extends Ticked {
         this.register();
 
         // Load custom animations asynchronously
-        S.async(this::loadCustomAnimations);
+        S.async(task ->this.loadCustomAnimations());
     }
 
     public long getStep() {

@@ -20,8 +20,8 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
-        S.async(() -> DH.getHologramManager().updateVisibility(player));
-        S.sync(() -> DH.getPacketListener().hook(player));
+        S.async(task -> DH.getHologramManager().updateVisibility(player));
+        S.sync(task -> DH.getPacketListener().hook(player));
         if (DH.isUpdateAvailable() && player.hasPermission("dh.admin")) {
             Lang.sendUpdateMessage(player);
         }
@@ -30,20 +30,20 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
         Player player = e.getPlayer();
-        S.async(() -> DH.getHologramManager().onQuit(player));
+        S.async(task -> DH.getHologramManager().onQuit(player));
         DH.getPacketListener().unhook(player);
     }
 
     @EventHandler
     public void onRespawn(PlayerRespawnEvent e) {
         Player player = e.getPlayer();
-        S.async(() -> DH.getHologramManager().updateVisibility(player));
+        S.async(task -> DH.getHologramManager().updateVisibility(player));
     }
 
     @EventHandler
     public void onTeleport(PlayerTeleportEvent e) {
         Player player = e.getPlayer();
-        S.async(() -> DH.getHologramManager().updateVisibility(player));
+        S.async(task -> DH.getHologramManager().updateVisibility(player));
     }
 
 }
