@@ -38,7 +38,7 @@ public class PacketListener {
     }
 
     public boolean hook(Player player) {
-        if (usingProtocolLib) {
+        if (usingProtocolLib || !player.isOnline()) {
             return true;
         }
 
