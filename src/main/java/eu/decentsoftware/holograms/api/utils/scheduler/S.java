@@ -19,8 +19,16 @@ public class S {
         Bukkit.getScheduler().runTask(DECENT_HOLOGRAMS.getPlugin(), runnable);
     }
 
+    public static void sync(org.bukkit.entity.Player player, Runnable runnable) {
+        player.getScheduler().run(DECENT_HOLOGRAMS.getPlugin(), $ -> runnable.run(), null);
+    }
+
     public static BukkitTask sync(Runnable runnable, long delay) {
         return Bukkit.getScheduler().runTaskLater(DECENT_HOLOGRAMS.getPlugin(), runnable, delay);
+    }
+
+    public static void sync(org.bukkit.entity.Player player, Runnable runnable, long delay) {
+        player.getScheduler().runDelayed(DECENT_HOLOGRAMS.getPlugin(), $ -> runnable.run(), null, delay);
     }
 
     public static BukkitTask syncTask(Runnable runnable, long interval) {
@@ -29,7 +37,7 @@ public class S {
 
     public static void async(Runnable runnable) {
         try {
-            Bukkit.getScheduler().runTaskAsynchronously(DECENT_HOLOGRAMS.getPlugin(), runnable);
+            Bukkit.getAsyncScheduler().runNow(DECENT_HOLOGRAMS.getPlugin(), $ -> runnable.run());
         } catch (IllegalPluginAccessException e) {
             DExecutor.execute(runnable);
         }
@@ -37,7 +45,7 @@ public class S {
 
     public static void async(Runnable runnable, long delay) {
         try {
-            Bukkit.getScheduler().runTaskLaterAsynchronously(DECENT_HOLOGRAMS.getPlugin(), runnable, delay);
+            Bukkit.getAsyncScheduler().runDelayed(DECENT_HOLOGRAMS.getPlugin(), $ -> runnable.run(), delay * 50, java.util.concurrent.TimeUnit.MILLISECONDS);
         } catch (IllegalPluginAccessException e) {
             DExecutor.execute(runnable);
         }
@@ -47,8 +55,8 @@ public class S {
         return Bukkit.getScheduler().runTaskTimerAsynchronously(DECENT_HOLOGRAMS.getPlugin(), runnable, 0, interval);
     }
 
-    public static BukkitTask asyncTask(Runnable runnable, long interval, long delay) {
-        return Bukkit.getScheduler().runTaskTimerAsynchronously(DECENT_HOLOGRAMS.getPlugin(), runnable, delay, interval);
+    public static Runnable asyncTask(Runnable runnable, long interval, long delay) {
+        return Bukkit.getAsyncScheduler().runAtFixedRate(DECENT_HOLOGRAMS.getPlugin(), $ -> runnable.run(), delay * 50, interval * 50, java.util.concurrent.TimeUnit.MILLISECONDS)::cancel;
     }
 
 }
