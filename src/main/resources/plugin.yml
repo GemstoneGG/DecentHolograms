@@ -8,6 +8,7 @@ name: DecentHolograms
 description: ${description}
 version: ${version}
 author: d0by
+folia-supported: true
 
 commands:
   decentholograms:

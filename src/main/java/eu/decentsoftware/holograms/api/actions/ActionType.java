@@ -66,10 +66,10 @@ public abstract class ActionType {
 			Validate.notNull(player);
 
 			String string = String.join(" ", args);
-			Bukkit.getScheduler().runTask(DECENT_HOLOGRAMS.getPlugin(), () -> {
+			player.getScheduler().run(DECENT_HOLOGRAMS.getPlugin(), $ -> {
 				//
 				player.chat(PAPI.setPlaceholders(player, string.replace("{player}", player.getName())));
-			});
+			}, null);
 			return true;
 		}
 	};
@@ -80,10 +80,10 @@ public abstract class ActionType {
 			Validate.notNull(player);
 
 			String string = String.join(" ", args);
-			Bukkit.getScheduler().runTask(DECENT_HOLOGRAMS.getPlugin(), () -> {
+			player.getScheduler().run(DECENT_HOLOGRAMS.getPlugin(), $ -> {
 				//
 				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), PAPI.setPlaceholders(player, string.replace("{player}", player.getName())));
-			});
+			}, null);
 			return true;
 		}
 	};
@@ -113,7 +113,7 @@ public abstract class ActionType {
 			if (location == null) {
 				return false;
 			}
-			Bukkit.getScheduler().runTask(DECENT_HOLOGRAMS.getPlugin(), () -> player.teleport(location));
+			player.teleportAsync(location);
 			return true;
 		}
 	};
