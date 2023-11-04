@@ -30,7 +30,7 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
         Player player = e.getPlayer();
-        S.async(() -> DH.getHologramManager().onQuit(player));
+        S.async(() -> DH.getHologramManager().onQuit(player);
         DH.getPacketListener().unhook(player);
     }
 
